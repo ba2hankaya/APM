@@ -286,7 +286,7 @@ class Potion : public Item
    
 };
 
-class Armor : Item // here just for now
+class Armor : public Item // here just for now
 {
   public:
     enum ArmorType//for slots
@@ -303,9 +303,40 @@ class Armor : Item // here just for now
       Wristband
     };
   private:
-    double armorincrease = 0;//effects
-    double atkincrease = 0;
-    double luckincrease = 0;
+    double armorIncrease = 0;//effects
+    double atkIncrease = 0;
+    double luckIncrease = 0;
+    double healthIncrease = 0;
+    double energyIncrease = 0;
+    ArmorType armorType;
+  public:
+    Armor(const int &id, const int& maxDurability, const std::string &name, const std::string &description, const double &armorIncrease, const double &atkIncrease, const double &luckIncrease, const double &energyIncrease, const double healthIncrease, ArmorType armorType) : Item(id, maxDurability, name, description)
+    {//potion constructor for presets
+      this->armorIncrease = armorIncrease;
+      this->atkIncrease = atkIncrease;
+      this->luckIncrease = luckIncrease;
+      this->healthIncrease = healthIncrease;
+      this->energyIncrease = energyIncrease;
+      this->armorType = armorType;
+    }
+
+    double getArmorIncrease()const{return armorIncrease;}
+    double getAtkIncrease()const{return atkIncrease;}
+    double getLuckIncrease()const{return luckIncrease;}
+    double getHealthIncrease()const{return healthIncrease;}
+    double getEnergyIncrease()const{return energyIncrease;}
+    ArmorType getArmorType() const{return armorType;}
+    Item* cloneQuantityOfPreset(const int& quantity) const override
+    {//overwrite clone method so it return Armor type instead of item
+      Armor* toReturn = new Armor(*this);
+      toReturn->changeQuantity(quantity);
+      return toReturn;
+    }
+    void use() override
+    {
+      //dont call the item::use(),it must only work if worn=false, instead get the player instance, check if the armorslot corresponding to this armor's armortype is empty, if so wear armor and add effects and set worn = true, if not give error message
+    }
+    //add a void take off, it must only work if the armor is already being worn and there is an empty slot in inventory, reverse the effects, set worn = false
 };
 
 ItemPresetDatabase::ItemPresetDatabase()
