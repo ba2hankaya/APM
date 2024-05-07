@@ -79,7 +79,7 @@ class Item
       currentDurability--; //lower durability by one
       if(currentDurability <= 0)
       {
-        quantity--; //if durabiliity is zero lower quantity(inventory removes the item ifk quantity = 0)
+        quantity--; //if durabiliity is zero lower quantity(inventory removes the item ifk quantity = 0) add a luck feature here
         if(quantity != 0)
         {
           currentDurability = maxDurability;//after quantity drops, if the quantity isn't zero reset the durability
@@ -91,11 +91,11 @@ class Item
 class Player
 {
 	private:
-    int currentHealth;
-		int maxHealth;
-		int currentEnergy;
-		int maxEnergy;
-		int attack;
+    double currentHealth;
+		double maxHealth;
+		double currentEnergy;
+		double maxEnergy;
+		double attack;
     //player stats
     
     const ItemPresetDatabase* database = nullptr; // pointer to the database
@@ -126,31 +126,31 @@ class Player
         return instance;
       }
 		
-    void SetHealthTo(const int& setTo){
+    void SetHealthTo(const double& setTo){
 		  currentHealth = setTo;
 		}
 
-    void changeHealthBy(const int& by){
+    void changeHealthBy(const double& by){
       std::cout << by;
       currentHealth += by;
       std::cout << currentHealth;
     }
 
-    int getCurrentHealth() const{return currentHealth;}
+    double getCurrentHealth() const{return currentHealth;}
 
-    int getMaxHealth() const{return maxHealth;}
+    double getMaxHealth() const{return maxHealth;}
 
-    void SetEnergyTo(const int& setTo){
+    void SetEnergyTo(const double& setTo){
       currentEnergy = setTo;
     }
 
-    void changeEnergyBy(const int& by){
+    void changeEnergyBy(const double& by){
       currentEnergy += by;
     }
 
-    int getCurrentEnergy() const {return currentEnergy;}
+    double getCurrentEnergy() const {return currentEnergy;}
 
-    int getMaxEnergy() const {return maxEnergy;}
+    double getMaxEnergy() const {return maxEnergy;}
 
     int addItem(const int& id, const int& quantity) //add quantity of item with id
     {
@@ -261,6 +261,28 @@ class Potion : public Item
     PotionType getPotionType() const {return potionType;}
     int getEffectAmount() const {return effectAmount;}
    
+};
+
+class Armor : Item // here just for now
+{
+  public:
+    enum ArmorType//for slots
+    {
+      Headgear,
+      Chestgear,
+      Pants,
+      Shoes,
+      Orb,
+      Earrings,
+      Rune,
+      Cape,
+      Belt,
+      Wristband
+    };
+  private:
+    double armorincrease = 0;//effects
+    double atkincrease = 0;
+    double luckincrease = 0;
 };
 
 ItemPresetDatabase::ItemPresetDatabase()
