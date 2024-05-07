@@ -95,7 +95,9 @@ class Player
 		double maxHealth;
 		double currentEnergy;
 		double maxEnergy;
-		double attack;
+		double attack = 1;
+    double luck = 0;
+    double defense = 0;
     //player stats
     
     const ItemPresetDatabase* database = nullptr; // pointer to the database
@@ -151,6 +153,27 @@ class Player
     double getCurrentEnergy() const {return currentEnergy;}
 
     double getMaxEnergy() const {return maxEnergy;}
+
+    double getAttack() const {return attack;}
+
+    double getLuck() const {return luck;}
+
+    double getDefense() const {return defense;}
+
+    void changeAttackBy(const double &by)
+    {
+      attack += by;
+    }
+
+    void changeLuckBy(const double &by)
+    {
+      luck += by;
+    }
+
+    void changeDefenseBy(const double &by)
+    {
+      defense += by;
+    }
 
     int addItem(const int& id, const int& quantity) //add quantity of item with id
     {
