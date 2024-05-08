@@ -36,9 +36,7 @@ class Item
     int quantity=0;//used for creating instances that will be used in the inventory
     const ItemPresetDatabase* database = nullptr; // pointer to the database
     const std::vector<Item*>* presetList = nullptr; //pointer to the presetlist
- 
-    public:
-    
+  public:   
     Item(const int &id, const int& maxDurability, const std::string &name, const std::string &description)
     {//item constructor for presets
       this->id = id;
@@ -90,12 +88,12 @@ class Item
 
 class Player
 {
-	private:
+  private:
     double currentHealth;
-		double maxHealth;
-		double currentEnergy;
-		double maxEnergy;
-		double attack = 1;
+    double maxHealth;
+    double currentEnergy;
+    double maxEnergy;
+    double attack = 1;
     double luck = 0;
     double defense = 0;
     //player stats
@@ -111,26 +109,26 @@ class Player
 
     //player construct in private (singleton)
     Player(){
-		  maxEnergy = 30;//initial values of health and energyy of the player at the start of the game
-			maxHealth = 100;
+      maxEnergy = 30;//initial values of health and energyy of the player at the start of the game
+      maxHealth = 100;
       currentHealth = maxHealth;
       currentEnergy = maxEnergy;
       database = ItemPresetDatabase::getInstance();
       presetList = &database->getPresetList();
-		}
+     }
 
-	  public:
-	    static Player *getInstance(){//get player intance
-        if(instance == NULL)
-        {
-          instance = new Player();
-        }
-        return instance;
+  public:
+    static Player *getInstance(){//get player intance
+      if(instance == NULL)
+      {
+        instance = new Player();
       }
+      return instance;
+    }
 		
     void SetHealthTo(const double& setTo){
-		  currentHealth = setTo;
-		}
+      currentHealth = setTo;
+    }
 
     void changeHealthBy(const double& by){
       std::cout << by;
